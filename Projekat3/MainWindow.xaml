@@ -1,0 +1,44 @@
+﻿<Window x:Class="Projekat3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Projekat3"
+        xmlns:views="clr-namespace:Projekat3.Views"
+        xmlns:viewModel="clr-namespace:Projekat3.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="900" Width="1200" Background="Bisque">
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:TabelaViewModel}">
+            <views:TabelaView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:RasporedSlikaViewModel}">
+            <views:SlikeView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:HelpViewModel}">
+            <views:HelpView1/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Margin="5">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="Tabela" Command="{Binding NavCommand}" CommandParameter="tabela"/>
+                <MenuItem Header="Slike" Command="{Binding NavCommand}" CommandParameter="slike"/>
+                <MenuItem Header="Help" Command="{Binding NavCommand}" CommandParameter="help"/>
+            </Menu>
+        </DockPanel>
+
+        <Grid Grid.Row="1">
+            <ContentControl Content="{Binding CurrentViewModel}"/>
+        </Grid>
+        
+    </Grid>
+</Window>

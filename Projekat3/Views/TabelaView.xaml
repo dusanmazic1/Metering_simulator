@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="Projekat3.Views.TabelaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Projekat3.Views"
+             xmlns:viewMode="clr-namespace:Projekat3.ViewModel"
+             xmlns:model="clr-namespace:Projekat3.Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="1000">
+    <UserControl.DataContext>
+        <viewMode:TabelaViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+
+        <StackPanel Orientation="Horizontal" Height="100" VerticalAlignment="Top" Margin="168,10,-168,0">
+            <ComboBox Name="ListaType" ItemsSource="{Binding Imena_Tipova.Keys}" SelectedItem="{Binding Izabrani_Tip_Filter}" Height="50" Width="200" HorizontalAlignment="Left"/>
+            <Label Content="ID" Width="50" Height="50" HorizontalAlignment="Left" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <StackPanel Orientation="Vertical" Width="70">
+                <RadioButton Name="rb1" Content="higher" IsChecked="{Binding ISCHECKEDGREATER}" Margin="0,35,0,0"/>
+                <RadioButton Name="rb2" Content="lower" IsChecked="{Binding ISCHECKEDLOWER}" Margin="0,0,0,0"/>
+            </StackPanel>
+            <TextBox x:Name="filterID" Text="{Binding TBFILTERID}" Width="108" Height="50" Margin="10,25"/>
+
+            <Button Name="buttonFilter" Command="{Binding FilterCommand}"  Content="Filter" Margin="150,0,0,0" Height="50" Width="150" FontSize="34"/>
+            <Button x:Name="btnCancel"  Command="{Binding CancelFilterCommand}" Content="Cancel" Width="100" Height="50" FontSize="24"  Margin="50,0,0,0"/>
+        </StackPanel>
+
+        <DataGrid Name="DataGridTabela" CanUserAddRows="False" ItemsSource="{Binding Lokalni_Meraci }" AutoGenerateColumns="False" SelectedItem="{Binding Selektovani_Merac}" Margin="0,105,0,245" Height="300" Width="1000">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="200" Binding="{Binding ID}">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+
+                <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Type" Width="200" Binding="{Binding Tip.Naziv}">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+
+                <DataGridTextColumn Header="Value" Width="*" Binding="{Binding Vrednost}">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Vertical" Margin="122,410,0,110" Width="600" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal">
+                <Label>ID</Label>
+                <TextBox x:Name="tbID" Text="{Binding TBID}" HorizontalAlignment="Left" Margin="28,0,0,0" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Name" Width="50" HorizontalAlignment="Left"/>
+                <TextBox Name="tbNAME" Text="{Binding TBNAME}" HorizontalAlignment="Left" Margin="0,0,0,0" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Type:" Width="50" HorizontalAlignment="Left"/>
+                <ComboBox Name="cmbTYPE" ItemsSource="{Binding Imena_Tipova.Keys}" SelectedItem="{Binding Izabrani_Tip}" HorizontalAlignment="Left" Width="200"/>
+            </StackPanel>
+
+            <Image Name="Slika" Source="{Binding Izabrani_Tip_Slika}" Height="120"  Margin="428,-80,0,0"/>
+        </StackPanel>
+
+        <Button Content="Add" Command="{Binding AddCommand}" Height="50" Width="100" Margin="792,415,108,185" FontSize="30"/>
+        <Button Content="Delete" Command="{Binding DeleteCommand}" Height="50" Width="100" Margin="792,465,108,135" FontSize="30"/>
+
+
+    </Grid>
+</UserControl>
